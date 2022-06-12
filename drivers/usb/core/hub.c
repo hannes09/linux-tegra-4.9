@@ -5056,7 +5056,7 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 	int status = -ENODEV;
 
 	dev_info(&port_dev->dev,"hub_port_connect\n");
-	
+
 	dev_dbg(&port_dev->dev, "status %04x, change %04x, %s\n", portstatus,
 			portchange, portspeed(hub, portstatus));
 
@@ -5275,7 +5275,8 @@ static void hub_event(struct work_struct *work)
 	for (i = 1; i <= hdev->maxchild; i++) {
 		struct usb_port *port_dev = hub->ports[i - 1];
 
-		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,port_dev->child->speed)
+		const char *speedTest = usb_speed_string(port_dev->child->speed);
+		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,speedTest)
 
 		if (test_bit(i, hub->event_bits)
 				|| test_bit(i, hub->change_bits)
