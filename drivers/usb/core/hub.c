@@ -4825,7 +4825,7 @@ static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
 	static int unreliable_port = -1;
 
 
-	dev_info((&port_dev->dev,"hub_port_connect \n");
+	dev_info(&port_dev->dev,"hub_port_connect \n");
 
 	/* Disconnect any existing devices under this port */
 	if (udev) {
