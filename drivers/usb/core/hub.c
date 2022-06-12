@@ -4425,11 +4425,11 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
 	const char		*speed;
 	int			devnum = udev->devnum;
 
-	const char *speedTest = usb_speed_string(udev->speed);
-	dev_info(&udev->dev,
-				"%s %s hub_port_init:  USB device number %d using %s\n",
-				(udev->config) ? "reset" : "new", speedTest,
-				devnum, udev->bus->controller->driver->name);
+	//const char *speedTest = usb_speed_string(udev->speed);
+	//dev_info(&udev->dev,
+	//			"%s %s hub_port_init:  USB device number %d using %s\n",
+	//			(udev->config) ? "reset" : "new", speedTest,
+	//			devnum, udev->bus->controller->driver->name);
 
 	/* root hub ports have a slightly longer reset period
 	 * (from USB 2.0 spec, section 7.1.7.5)
@@ -5275,8 +5275,8 @@ static void hub_event(struct work_struct *work)
 	for (i = 1; i <= hdev->maxchild; i++) {
 		struct usb_port *port_dev = hub->ports[i - 1];
 
-		const char *speedTest = usb_speed_string(port_dev->child->speed);
-		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,speedTest);
+		//const char *speedTest = usb_speed_string(port_dev->child->speed);
+		//dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,speedTest);
 
 		if (test_bit(i, hub->event_bits)
 				|| test_bit(i, hub->change_bits)
