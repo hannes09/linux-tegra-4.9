@@ -4825,7 +4825,7 @@ static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
 	static int unreliable_port = -1;
 
 
-	dev_info(&port_dev->dev,"hub_port_connect \n");
+	dev_info(&port_dev->dev,"hub_port_connect\n");
 
 	/* Disconnect any existing devices under this port */
 	if (udev) {
@@ -5051,7 +5051,7 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 		__must_hold(&port_dev->status_lock)
 {
 
-	dev_info(&port_dev->dev,"hub_port_connect \n");
+	dev_info(&port_dev->dev,"hub_port_connect\n");
 
 
 	struct usb_port *port_dev = hub->ports[port1 - 1];
@@ -5106,7 +5106,7 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 static void port_event(struct usb_hub *hub, int port1)
 		__must_hold(&port_dev->status_lock)
 {
-	dev_info(&port_dev->dev,"port_event \n");
+	dev_info(&port_dev->dev,"port_event\n");
 
 	int connect_change;
 	struct usb_port *port_dev = hub->ports[port1 - 1];
@@ -5226,7 +5226,7 @@ static void hub_event(struct work_struct *work)
 	hub_dev = hub->intfdev;
 	intf = to_usb_interface(hub_dev);
 
-	dev_info(hub_dev,"hub_event \n");
+	dev_info(hub_dev,"hub_event\n");
 
 	dev_dbg(hub_dev, "state %d ports %d chg %04x evt %04x\n",
 			hdev->state, hdev->maxchild,
@@ -5275,7 +5275,7 @@ static void hub_event(struct work_struct *work)
 	for (i = 1; i <= hdev->maxchild; i++) {
 		struct usb_port *port_dev = hub->ports[i - 1];
 
-		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s \n",i,port_dev->child->speed)
+		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,port_dev->child->speed)
 
 		if (test_bit(i, hub->event_bits)
 				|| test_bit(i, hub->change_bits)
