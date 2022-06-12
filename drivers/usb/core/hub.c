@@ -4815,8 +4815,6 @@ static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
 		u16 portchange)
 {
 
-	dev_info(hub,"hub_port_connect \n");
-
 	int status = -ENODEV;
 	int i;
 	unsigned unit_load;
@@ -4825,6 +4823,9 @@ static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	struct usb_device *udev = port_dev->child;
 	static int unreliable_port = -1;
+
+
+	dev_info((&port_dev->dev,"hub_port_connect \n");
 
 	/* Disconnect any existing devices under this port */
 	if (udev) {
@@ -5050,7 +5051,7 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 		__must_hold(&port_dev->status_lock)
 {
 
-	dev_info(hub,"hub_port_connect \n");
+	dev_info(&port_dev->dev,"hub_port_connect \n");
 
 
 	struct usb_port *port_dev = hub->ports[port1 - 1];
@@ -5105,7 +5106,7 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 static void port_event(struct usb_hub *hub, int port1)
 		__must_hold(&port_dev->status_lock)
 {
-	dev_info(hub,"port_event \n");
+	dev_info(&port_dev->dev,"port_event \n");
 
 	int connect_change;
 	struct usb_port *port_dev = hub->ports[port1 - 1];
@@ -5212,7 +5213,6 @@ static void port_event(struct usb_hub *hub, int port1)
 static void hub_event(struct work_struct *work)
 {
 
-	dev_info(hub,"hub_event \n");
 	struct usb_device *hdev;
 	struct usb_interface *intf;
 	struct usb_hub *hub;
@@ -5225,6 +5225,8 @@ static void hub_event(struct work_struct *work)
 	hdev = hub->hdev;
 	hub_dev = hub->intfdev;
 	intf = to_usb_interface(hub_dev);
+
+	dev_info(hub_dev,"hub_event \n");
 
 	dev_dbg(hub_dev, "state %d ports %d chg %04x evt %04x\n",
 			hdev->state, hdev->maxchild,
