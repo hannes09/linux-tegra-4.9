@@ -4415,6 +4415,8 @@ static int
 hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
 		int retry_counter)
 {
+
+
 	struct usb_device	*hdev = hub->hdev;
 	struct usb_hcd		*hcd = bus_to_hcd(hdev->bus);
 	int			retries, operations, retval, i;
@@ -4422,6 +4424,11 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
 	enum usb_device_speed	oldspeed = udev->speed;
 	const char		*speed;
 	int			devnum = udev->devnum;
+
+	dev_info(&udev->dev,
+				"%s %s hub_port_init:  USB device number %d using %s\n",
+				(udev->config) ? "reset" : "new", speed,
+				devnum, udev->bus->controller->driver->name);
 
 	/* root hub ports have a slightly longer reset period
 	 * (from USB 2.0 spec, section 7.1.7.5)
@@ -4807,6 +4814,9 @@ hub_power_remaining(struct usb_hub *hub)
 static void hub_port_connect(struct usb_hub *hub, int port1, u16 portstatus,
 		u16 portchange)
 {
+
+	dev_info(hub,"hub_port_connect \n");
+
 	int status = -ENODEV;
 	int i;
 	unsigned unit_load;
@@ -5039,6 +5049,10 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 					u16 portstatus, u16 portchange)
 		__must_hold(&port_dev->status_lock)
 {
+
+	dev_info(hub,"hub_port_connect \n");
+
+
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	struct usb_device *udev = port_dev->child;
 	int status = -ENODEV;
@@ -5091,6 +5105,8 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 static void port_event(struct usb_hub *hub, int port1)
 		__must_hold(&port_dev->status_lock)
 {
+	dev_info(hub,"port_event \n");
+
 	int connect_change;
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	struct usb_device *udev = port_dev->child;
@@ -5195,6 +5211,8 @@ static void port_event(struct usb_hub *hub, int port1)
 
 static void hub_event(struct work_struct *work)
 {
+
+	dev_info(hub,"hub_event \n");
 	struct usb_device *hdev;
 	struct usb_interface *intf;
 	struct usb_hub *hub;
@@ -5254,6 +5272,8 @@ static void hub_event(struct work_struct *work)
 	/* deal with port status changes */
 	for (i = 1; i <= hdev->maxchild; i++) {
 		struct usb_port *port_dev = hub->ports[i - 1];
+
+		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s \n",i,port_dev->child->speed)
 
 		if (test_bit(i, hub->event_bits)
 				|| test_bit(i, hub->change_bits)
