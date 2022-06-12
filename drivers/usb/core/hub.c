@@ -4427,7 +4427,7 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
 
 	dev_info(&udev->dev,
 				"%s %s hub_port_init:  USB device number %d using %s\n",
-				(udev->config) ? "reset" : "new", speed,
+				(udev->config) ? "reset" : "new", udev->speed,
 				devnum, udev->bus->controller->driver->name);
 
 	/* root hub ports have a slightly longer reset period
