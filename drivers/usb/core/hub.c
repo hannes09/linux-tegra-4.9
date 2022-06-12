@@ -5276,7 +5276,7 @@ static void hub_event(struct work_struct *work)
 		struct usb_port *port_dev = hub->ports[i - 1];
 
 		const char *speedTest = usb_speed_string(port_dev->child->speed);
-		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,speedTest)
+		dev_info(hub_dev,"usb_port iteratoring device %d with speed: %s\n",i,speedTest);
 
 		if (test_bit(i, hub->event_bits)
 				|| test_bit(i, hub->change_bits)
