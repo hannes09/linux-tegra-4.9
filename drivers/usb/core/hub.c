@@ -5051,14 +5051,12 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 					u16 portstatus, u16 portchange)
 		__must_hold(&port_dev->status_lock)
 {
-
-	dev_info(&port_dev->dev,"hub_port_connect\n");
-
-
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	struct usb_device *udev = port_dev->child;
 	int status = -ENODEV;
 
+	dev_info(&port_dev->dev,"hub_port_connect\n");
+	
 	dev_dbg(&port_dev->dev, "status %04x, change %04x, %s\n", portstatus,
 			portchange, portspeed(hub, portstatus));
 
@@ -5107,13 +5105,14 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 static void port_event(struct usb_hub *hub, int port1)
 		__must_hold(&port_dev->status_lock)
 {
-	dev_info(&port_dev->dev,"port_event\n");
 
 	int connect_change;
 	struct usb_port *port_dev = hub->ports[port1 - 1];
 	struct usb_device *udev = port_dev->child;
 	struct usb_device *hdev = hub->hdev;
 	u16 portstatus, portchange;
+	
+	dev_info(&port_dev->dev,"port_event\n");
 
 	connect_change = test_bit(port1, hub->change_bits);
 	clear_bit(port1, hub->event_bits);
