@@ -837,6 +837,8 @@ static int tegra_xusb_add_usb3_port(struct tegra_xusb_padctl *padctl,
 	struct device_node *np;
 	int err = 0;
 
+	dev_info(padctl->dev, "tegra_xusb_add_usb3_port start");
+
 	/*
 	 * If there is no supplemental configuration in the device tree the
 	 * port is unusable. But it is valid to configure only a single port,
@@ -878,6 +880,7 @@ static int tegra_xusb_add_usb3_port(struct tegra_xusb_padctl *padctl,
 		tegra_xusb_port_unregister(&usb3->base);
 		goto out;
 	}
+
 	if (usb2->port_cap == USB_OTG_CAP || usb2->port_cap == USB_DEVICE_CAP) {
 		padctl->otg_vbus_usb3_port_base_1[usb2->vbus_id] = index + 1;
 		dev_dbg(padctl->dev, "vbus_id %d => usb3 %d\n", usb2->vbus_id,
@@ -885,6 +888,7 @@ static int tegra_xusb_add_usb3_port(struct tegra_xusb_padctl *padctl,
 	}
 
 	list_add_tail(&usb3->base.list, &padctl->ports);
+	dev_info(padctl->dev, "tegra_xusb_add_usb3_port success");
 
 out:
 	of_node_put(np);

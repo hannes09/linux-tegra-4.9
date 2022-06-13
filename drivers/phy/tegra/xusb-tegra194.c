@@ -1321,6 +1321,7 @@ static int tegra194_usb3_phy_power_on(struct phy *phy)
 	struct tegra194_xusb_padctl *priv;
 
 	dev_dbg(dev, "phy power on USB3 %d\n", index);
+	dev_info(dev, "phy power on USB3 %d\n", index);
 
 	port = tegra_xusb_find_usb3_port(padctl, index);
 	if (!port) {
@@ -1566,6 +1567,7 @@ static int tegra194_usb3_phy_init(struct phy *phy)
 	struct tegra_xusb_usb2_port *companion_usb2_port;
 	int rc = 0;
 
+	dev_info(dev, "phy init USB3 %d\n", index);
 	dev_dbg(dev, "phy init USB3 %d\n", index);
 
 	port = tegra_xusb_find_usb3_port(padctl, index);

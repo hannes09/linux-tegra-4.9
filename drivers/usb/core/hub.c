@@ -1705,6 +1705,9 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
 	desc = intf->cur_altsetting;
 	hdev = interface_to_usbdev(intf);
 
+	dev_info(&intf->dev,
+			"hub_probe vendorID %u productID %u\n",id->idVendor,id->idProduct);
+
 	/*
 	 * Set default autosuspend delay as 0 to speedup bus suspend,
 	 * based on the below considerations:
