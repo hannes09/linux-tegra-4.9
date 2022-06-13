@@ -1705,6 +1705,8 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
 	desc = intf->cur_altsetting;
 	hdev = interface_to_usbdev(intf);
 
+	dev_info(&intf->dev,"hub_probe hdev infos: devnum %u portnum %u\n",hdev->devnum,hdev->portnum);
+
 	dev_info(&intf->dev,
 			"hub_probe vendorID %u productID %u\n",id->idVendor,id->idProduct);
 
@@ -5243,7 +5245,7 @@ static void hub_event(struct work_struct *work)
 	hub_dev = hub->intfdev;
 	intf = to_usb_interface(hub_dev);
 
-	dev_info(hub_dev,"hub_event\n");
+	dev_info(hub_dev,"hub_event hdev infos: devnum %u portnum %u\n",hdev->devnum,hdev->portnum);
 
 	dev_dbg(hub_dev, "state %d ports %d chg %04x evt %04x\n",
 			hdev->state, hdev->maxchild,
