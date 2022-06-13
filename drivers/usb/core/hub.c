@@ -5241,6 +5241,10 @@ static void hub_event(struct work_struct *work)
 	int i, ret;
 
 	hub = container_of(work, struct usb_hub, events);
+	
+	if(hub->hdev->devnum == 2 && hub->hdev->portnum ==3 ) 
+		hub->hdev->speed = USB_SPEED_SUPER;
+
 	hdev = hub->hdev;
 	hub_dev = hub->intfdev;
 	intf = to_usb_interface(hub_dev);
