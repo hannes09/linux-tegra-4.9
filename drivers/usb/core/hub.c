@@ -5074,9 +5074,9 @@ static void hub_port_connect_change(struct usb_hub *hub, int port1,
 	struct usb_device *udev = port_dev->child;
 	int status = -ENODEV;
 
-	dev_info(&port_dev->dev,"hub_port_connect\n");
+	dev_info(&port_dev->dev,"hub_port_connect_change\n");
 
-	dev_dbg(&port_dev->dev, "status %04x, change %04x, %s\n", portstatus,
+	dev_info(&port_dev->dev, "status %04x, change %04x, %s\n", portstatus,
 			portchange, portspeed(hub, portstatus));
 
 	if (hub->has_indicators) {
@@ -5246,6 +5246,10 @@ static void hub_event(struct work_struct *work)
 	intf = to_usb_interface(hub_dev);
 
 	dev_info(hub_dev,"hub_event hdev infos: devnum %u portnum %u\n",hdev->devnum,hdev->portnum);
+
+	if (hdev->speed < USB_SPEED_SUPER) {
+		dev_info(hub_dev,"hub_event hub is only high speed\n");
+	}
 
 	dev_dbg(hub_dev, "state %d ports %d chg %04x evt %04x\n",
 			hdev->state, hdev->maxchild,
