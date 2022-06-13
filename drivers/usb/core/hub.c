@@ -1343,6 +1343,11 @@ static int hub_configure(struct usb_hub *hub,
 	unsigned full_load;
 	unsigned maxchild;
 
+	if (hub_is_superspeed(hub->hdev)) 
+		dev_info(hub_dev, "hub_configure: hub is super speed\n");
+	else
+		dev_info(hub_dev, "hub_configure: hub is only high speed\n");
+
 	hub->buffer = kmalloc(sizeof(*hub->buffer), GFP_KERNEL);
 	if (!hub->buffer) {
 		ret = -ENOMEM;
@@ -5242,8 +5247,8 @@ static void hub_event(struct work_struct *work)
 
 	hub = container_of(work, struct usb_hub, events);
 	
-	if(hub->hdev->devnum == 2 && hub->hdev->portnum ==3 ) 
-		hub->hdev->speed = USB_SPEED_SUPER;
+	//if(hub->hdev->devnum == 2 && hub->hdev->portnum ==3 ) 
+	//	hub->hdev->speed = USB_SPEED_SUPER;
 
 	hdev = hub->hdev;
 	hub_dev = hub->intfdev;
