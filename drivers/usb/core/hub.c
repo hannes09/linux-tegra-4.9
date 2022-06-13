@@ -4447,9 +4447,23 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
 
 	mutex_lock(hcd->address0_mutex);
 
+	speedTest = usb_speed_string(udev->speed);
+	if (hub_is_superspeed(hub->hdev)) {
+		dev_info(&udev->dev,"hub is superspeed\n");
+	}
+	else {
+		dev_info(&udev->dev,"hub is only high speed\n");
+	}
+	
+	dev_info(&udev->dev,"device speed before hub_port_reset: %s\n",speedTest);
+
 	/* Reset the device; full speed may morph to high speed */
 	/* FIXME a USB 2.0 device may morph into SuperSpeed on reset. */
 	retval = hub_port_reset(hub, port1, udev, delay, false);
+
+	speedTest = usb_speed_string(udev->speed);
+	dev_info(&udev->dev,"speed after hub_port_reset: %s\n",speedTest);
+
 	if (retval < 0)		/* error or disconnect */
 		goto fail;
 	/* success, speed is known */
