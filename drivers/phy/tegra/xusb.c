@@ -858,6 +858,8 @@ static int tegra_xusb_add_usb3_port(struct tegra_xusb_padctl *padctl,
 	if (err < 0)
 		goto out;
 
+	dev_info(padctl->dev, "tegra_xusb_port_init success");
+
 	/* overcurrent disabled by default */
 	usb3->oc_pin = -1;
 
@@ -866,20 +868,27 @@ static int tegra_xusb_add_usb3_port(struct tegra_xusb_padctl *padctl,
 	usb3->base.lane = usb3->base.ops->map(&usb3->base);
 	if (IS_ERR(usb3->base.lane)) {
 		err = PTR_ERR(usb3->base.lane);
+		dev_info(padctl->dev, "IS_ERR(usb3->base.lane)");
 		goto out;
 	}
 
 	err = tegra_xusb_usb3_port_parse_dt(usb3);
 	if (err < 0) {
 		tegra_xusb_port_unregister(&usb3->base);
+		dev_info(padctl->dev, "tegra_xusb_usb3_port_parse_dt failed");
 		goto out;
 	}
+
+	dev_info(padctl->dev, "tegra_xusb_usb3_port_parse_dt success");
 
 	usb2 = tegra_xusb_find_usb2_port(padctl, usb3->port);
 	if (!usb2) {
 		tegra_xusb_port_unregister(&usb3->base);
+		dev_info(padctl->dev, "tegra_xusb_find_usb2_port failed");
 		goto out;
 	}
+
+	dev_info(padctl->dev, "tegra_xusb_find_usb2_port success");
 
 	if (usb2->port_cap == USB_OTG_CAP || usb2->port_cap == USB_DEVICE_CAP) {
 		padctl->otg_vbus_usb3_port_base_1[usb2->vbus_id] = index + 1;
