@@ -514,7 +514,7 @@ tegra_xusb_find_usb2_port(struct tegra_xusb_padctl *padctl, unsigned int index)
 
 	port = tegra_xusb_find_port(padctl, "usb2", index);
 	if (port)
-		return to_usb2_port(port);
+		return to_usb3_port(port);
 
 	return NULL;
 }
